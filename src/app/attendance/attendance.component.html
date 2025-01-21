@@ -141,12 +141,18 @@
               <!-- Staff -->
               <div class="col-md-6 mb-3">
                 <label for="staff" class="form-label">Staff</label>
-                <input id="staff" formControlName="staff" class="form-control" required>
+                <input type="text" class="form-control" id="staff" formControlName="staff" required />
+                <div *ngIf="elementForm.controls['staff'].invalid && elementForm.controls['staff'].touched" class="text-danger">
+                  Staff is required.
+                </div>
               </div>
               <!-- Day -->
               <div class="col-md-6 mb-3">
                 <label for="day" class="form-label">Day</label>
-                <input id="day" formControlName="day" type="date" class="form-control" required>
+                <input type="date" class="form-control" id="day" formControlName="day" required />
+                <div *ngIf="elementForm.controls['day'].invalid && elementForm.controls['day'].touched" class="text-danger">
+                  Day is required.
+                </div>
               </div>
             </div>
   
@@ -154,12 +160,18 @@
               <!-- Schedule -->
               <div class="col-md-6 mb-3">
                 <label for="schedule" class="form-label">Schedule</label>
-                <input id="schedule" formControlName="schedule" type="date" class="form-control" required>
+                <input type="date" class="form-control" id="schedule" formControlName="schedule" required />
+                <div *ngIf="elementForm.controls['schedule'].invalid && elementForm.controls['schedule'].touched" class="text-danger">
+                  Schedule is required.
+                </div>
               </div>
               <!-- Time In -->
               <div class="col-md-6 mb-3">
                 <label for="timeIn" class="form-label">Time In</label>
-                <input id="timeIn" formControlName="timeIn" type="time" class="form-control" required>
+                <input type="time" class="form-control" id="timeIn" formControlName="timeIn" required />
+                <div *ngIf="elementForm.controls['timeIn'].invalid && elementForm.controls['timeIn'].touched" class="text-danger">
+                  Time In is required.
+                </div>
               </div>
             </div>
   
@@ -167,12 +179,20 @@
               <!-- Time Out -->
               <div class="col-md-6 mb-3">
                 <label for="timeOut" class="form-label">Time Out</label>
-                <input id="timeOut" formControlName="timeOut" type="time" class="form-control" required>
+                <input type="time" class="form-control" id="timeOut" formControlName="timeOut" required />
+                <div *ngIf="elementForm.controls['timeOut'].invalid && elementForm.controls['timeOut'].touched" class="text-danger">
+                  Time Out is required.
+                </div>
               </div>
+
+
               <!-- Overtime In -->
               <div class="col-md-6 mb-3">
                 <label for="overtimeIn" class="form-label">Overtime In</label>
-                <input id="overtimeIn" formControlName="overtimeIn" type="time" class="form-control" required>
+                <input type="time" class="form-control" id="overtimeIn" formControlName="overtimeIn" required />
+                <div *ngIf="elementForm.controls['overtimeIn'].invalid && elementForm.controls['overtimeIn'].touched" class="text-danger">
+                  Overtime In is required.
+                </div>
               </div>
             </div>
   
@@ -180,12 +200,18 @@
               <!-- Overtime Out -->
               <div class="col-md-6 mb-3">
                 <label for="overtimeOut" class="form-label">Overtime Out</label>
-                <input id="overtimeOut" formControlName="overtimeOut" type="time" class="form-control" required>
+               <input type="time" class="form-control" id="overtimeOut" formControlName="overtimeOut" required />
+                <div *ngIf="elementForm.controls['overtimeOut'].invalid && elementForm.controls['overtimeOut'].touched" class="text-danger">
+                  Overtime Out is required.
+                </div>
               </div>
               <!-- Meal In -->
               <div class="col-md-6 mb-3">
                 <label for="mealIn" class="form-label">Meal In</label>
-                <input id="mealIn" formControlName="mealIn" type="time" class="form-control" required>
+                <input type="time" class="form-control" id="mealIn" formControlName="mealIn" required />
+                <div *ngIf="elementForm.controls['mealIn'].invalid && elementForm.controls['mealIn'].touched" class="text-danger">
+                  Meal In is required.
+                </div>
               </div>
             </div>
   
@@ -193,7 +219,10 @@
               <!-- Meal Out -->
               <div class="col-md-6 mb-3">
                 <label for="mealOut" class="form-label">Meal Out</label>
-                <input id="mealOut" formControlName="mealOut" type="time" class="form-control" required>
+                <input type="time" class="form-control" id="mealOut" formControlName="mealOut" required />
+                <div *ngIf="elementForm.controls['mealOut'].invalid && elementForm.controls['mealOut'].touched" class="text-danger">
+                  Meal Out is required.
+                </div>
               </div>
             </div>
   
@@ -218,12 +247,18 @@
               <!-- Staff -->
               <div class="col-md-6 mb-3">
                 <label for="staff" class="form-label">Staff</label>
-                <input id="staff" formControlName="staff" class="form-control" required>
+                <input type="text" class="form-control" id="staff" formControlName="staff" required />
+                <div *ngIf="elementForm.controls['staff'].invalid && elementForm.controls['staff'].touched" class="text-danger">
+                  Staff is required.
+                </div>
               </div>
               <!-- Day -->
               <div class="col-md-6 mb-3">
                 <label for="day" class="form-label">Day</label>
-                <input id="day" formControlName="day" type="date" class="form-control" required>
+                <input type="date" class="form-control" id="day" formControlName="day" required />
+                <div *ngIf="elementForm.controls['day'].invalid && elementForm.controls['day'].touched" class="text-danger">
+                  Day is required.
+                </div>
               </div>
             </div>
   
@@ -231,12 +266,18 @@
               <!-- Schedule -->
               <div class="col-md-6 mb-3">
                 <label for="schedule" class="form-label">Schedule</label>
-                <input id="schedule" formControlName="schedule" type="date" class="form-control" required>
+                <input type="date" class="form-control" id="schedule" formControlName="schedule" required />
+                <div *ngIf="elementForm.controls['schedule'].invalid && elementForm.controls['schedule'].touched" class="text-danger">
+                  Schedule is required.
+                </div>
               </div>
               <!-- Time In -->
               <div class="col-md-6 mb-3">
                 <label for="timeIn" class="form-label">Time In</label>
-                <input id="timeIn" formControlName="timeIn" type="time" class="form-control" required>
+                <input type="time" class="form-control" id="timeIn" formControlName="timeIn" required />
+                <div *ngIf="elementForm.controls['timeIn'].invalid && elementForm.controls['timeIn'].touched" class="text-danger">
+                  Time In is required.
+                </div>
               </div>
             </div>
   
@@ -244,12 +285,18 @@
               <!-- Time Out -->
               <div class="col-md-6 mb-3">
                 <label for="timeOut" class="form-label">Time Out</label>
-                <input id="timeOut" formControlName="timeOut" type="time" class="form-control" required>
+                <input type="time" class="form-control" id="timeOut" formControlName="timeOut" required />
+                <div *ngIf="elementForm.controls['timeOut'].invalid && elementForm.controls['timeOut'].touched" class="text-danger">
+                  Time Out is required.
+                </div>
               </div>
               <!-- Overtime In -->
               <div class="col-md-6 mb-3">
                 <label for="overtimeIn" class="form-label">Overtime In</label>
-                <input id="overtimeIn" formControlName="overtimeIn" type="time" class="form-control" required>
+                <input type="time" class="form-control" id="overtimeIn" formControlName="overtimeIn" required />
+                <div *ngIf="elementForm.controls['overtimeIn'].invalid && elementForm.controls['overtimeIn'].touched" class="text-danger">
+                  Overtime In is required.
+                </div>
               </div>
             </div>
   
@@ -257,12 +304,18 @@
               <!-- Overtime Out -->
               <div class="col-md-6 mb-3">
                 <label for="overtimeOut" class="form-label">Overtime Out</label>
-                <input id="overtimeOut" formControlName="overtimeOut" type="time" class="form-control" required>
+                <input type="time" class="form-control" id="overtimeOut" formControlName="overtimeOut" required />
+                <div *ngIf="elementForm.controls['overtimeOut'].invalid && elementForm.controls['overtimeOut'].touched" class="text-danger">
+                  Overtime Out is required.
+                </div>
               </div>
               <!-- Meal In -->
               <div class="col-md-6 mb-3">
                 <label for="mealIn" class="form-label">Meal In</label>
-                <input id="mealIn" formControlName="mealIn" type="time" class="form-control" required>
+                <input type="time" class="form-control" id="mealIn" formControlName="mealIn" required />
+                <div *ngIf="elementForm.controls['mealIn'].invalid && elementForm.controls['mealIn'].touched" class="text-danger">
+                  Meal In is required.
+                </div>
               </div>
             </div>
   
@@ -270,7 +323,10 @@
               <!-- Meal Out -->
               <div class="col-md-6 mb-3">
                 <label for="mealOut" class="form-label">Meal Out</label>
-                <input id="mealOut" formControlName="mealOut" type="time" class="form-control" required>
+                <input type="time" class="form-control" id="mealOut" formControlName="mealOut" required />
+                <div *ngIf="elementForm.controls['mealOut'].invalid && elementForm.controls['mealOut'].touched" class="text-danger">
+                  Meal Out is required.
+                </div>
               </div>
             </div>
   
