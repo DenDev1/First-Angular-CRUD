@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-//using in c# controller
+
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  selector: 'app-time-keeping',
+  templateUrl: './time-keeping.component.html',
+  styleUrls: ['./time-keeping.component.css']
 })
-//models with nullable values
-export class AppComponent {
-  title = 'First-Angular';
+export class TimeKeepingComponent {
+  title = 'JiTech';
   count: number = 0;
 
   inputText: string = "Input Value";
@@ -26,4 +25,3 @@ restartCount(){
 }
 
 }
-
