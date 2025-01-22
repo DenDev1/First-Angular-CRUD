@@ -31,7 +31,7 @@ import { ContactComponent } from './Component/contact/contact.component';
 import { TimeKeepingComponent } from './time-keeping/time-keeping.component';
 import { HeaderComponent } from './header/header.component';
 import { AttendanceComponent } from './attendance/attendance.component';
-
+import { AttendanceService } from './Services/Attendance.Service';  // Your attendance service
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +45,7 @@ import { AttendanceComponent } from './attendance/attendance.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-
+    HttpClientModule, // Add this to enable HTTP request
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
@@ -69,7 +69,7 @@ import { AttendanceComponent } from './attendance/attendance.component';
     MatTreeModule,
     RouterModule.forRoot([]),
   ],
-  providers: [],
+  providers: [AttendanceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { MatTableDataSource } from '@angular/material/table';
 import * as bootstrap from 'bootstrap';  // Import Bootstrap JS
-
+import { AttendanceService } from '../Services/Attendance.Service';  // Ensure path is correct
 
 export interface PeriodicElement {
   staff: string;
@@ -26,6 +26,7 @@ const ELEMENT_DATA: PeriodicElement[] = [];
   providers: [DatePipe]
 })
 export class AttendanceComponent implements OnInit {
+
   displayedColumns: string[] = [
     'staff', 'day', 'schedule', 'timeIn', 'timeOut', 
     'overtimeIn', 'overtimeOut', 'mealIn', 'mealOut', 'actions'
@@ -46,7 +47,7 @@ export class AttendanceComponent implements OnInit {
 
   elementForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private datePipe: DatePipe) {
+  constructor(private fb: FormBuilder, private datePipe: DatePipe, private attendanceService: AttendanceService) {
     this.elementForm = this.fb.group({
       staff: ['', Validators.required],
       day: ['', Validators.required],
@@ -99,45 +100,57 @@ export class AttendanceComponent implements OnInit {
     modal.show();
   }
 
-  saveNewElement() {
-    if (this.elementForm.valid) {
-      const element = this.elementForm.value;
-  
-      // Format date fields with DatePipe
-      element.day = this.datePipe.transform(element.day, 'MM/dd/yy')!;
-      element.schedule = this.datePipe.transform(element.schedule, 'MM/dd/yy')!;
-  
-      // Convert time fields to Date objects
-      element.timeIn = this.convertTimeToDate(element.timeIn);
-      element.timeOut = this.convertTimeToDate(element.timeOut);
-      element.overtimeIn = this.convertTimeToDate(element.overtimeIn);
-      element.overtimeOut = this.convertTimeToDate(element.overtimeOut);
-      element.mealIn = this.convertTimeToDate(element.mealIn);
-      element.mealOut = this.convertTimeToDate(element.mealOut);
-  
-      console.log('Saving New Element:', element);
-  
-      // Add the new element to the data array
-      this.dataSource.data.push(element);
-      this.dataSource = new MatTableDataSource(this.dataSource.data); // Refresh the data
-  
-      // Hide the modal
-      const modal = bootstrap.Modal.getInstance(document.getElementById('createModal')!);
-      modal?.hide();
-    } else {
-      console.log('Form is invalid');
-    }
+  // attendance.component.ts
+
+saveNewElement() {
+  if (this.elementForm.valid) {
+    const element = this.elementForm.value;
+
+    // Format date fields with DatePipe
+    element.day = this.datePipe.transform(element.day, 'MM/dd/yy')!;
+    element.schedule = this.datePipe.transform(element.schedule, 'MM/dd/yy')!;
+
+    // Convert time fields to Date objects
+    element.timeIn = this.convertTimeToDate(element.timeIn);
+    element.timeOut = this.convertTimeToDate(element.timeOut);
+    element.overtimeIn = this.convertTimeToDate(element.overtimeIn);
+    element.overtimeOut = this.convertTimeToDate(element.overtimeOut);
+    element.mealIn = this.convertTimeToDate(element.mealIn);
+    element.mealOut = this.convertTimeToDate(element.mealOut);
+
+    console.log('Saving New Element:', element);
+
+    // Send the data to the backend
+    this.attendanceService.saveAttendance(element).subscribe(
+      (response: any) => {  // Explicitly type the response
+        console.log('Attendance saved:', response);
+        // Add the new element to the data array
+        this.dataSource.data.push(element);
+        this.dataSource = new MatTableDataSource(this.dataSource.data); // Refresh the data
+
+        // Hide the modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('createModal')!);
+        modal?.hide();
+      },
+      (error: any) => {  // Explicitly type the error
+        console.error('Error saving attendance:', error);
+      }
+    );
+  } else {
+    console.log('Form is invalid');
   }
+}
+
 
   saveChanges() {
     if (this.elementForm.invalid) {
       return;
     }
-  
+
     const index = this.dataSource.data.findIndex(
       (item: PeriodicElement) => item.staff === this.selectedElement.staff
     );
-  
+
     if (index !== -1) {
       // Only apply DatePipe to date fields (day and schedule)
       this.dataSource.data[index] = {
@@ -152,10 +165,10 @@ export class AttendanceComponent implements OnInit {
         mealIn: this.convertTimeToDate(this.elementForm.value.mealIn),
         mealOut: this.convertTimeToDate(this.elementForm.value.mealOut)
       };
-  
+
       this.dataSource.data = [...this.dataSource.data];
     }
-  
+
     const modal = bootstrap.Modal.getInstance(document.getElementById('editModal')!);
     modal?.hide();
   }
