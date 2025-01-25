@@ -17,4 +17,10 @@ export class AttendanceService {
   saveAttendance(attendance: any): Observable<any> {
     return this.http.post<any>(this.apiUrl, attendance);  // Ensure proper type annotation
   }
+
+  // Update attendance record
+  updateAttendance(id: string, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/update/${id}`, data);
+  }
+  
 }

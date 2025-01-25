@@ -6,6 +6,7 @@ import * as bootstrap from 'bootstrap';  // Import Bootstrap JS
 import { AttendanceService } from '../Services/Attendance.Service';  // Ensure path is correct
 
 export interface PeriodicElement {
+  _id?: string; // Optional because it comes from MongoDB
   staff: string;
   day: Date;
   schedule: Date;
@@ -142,36 +143,50 @@ saveNewElement() {
 }
 
 
-  saveChanges() {
-    if (this.elementForm.invalid) {
-      return;
-    }
-
-    const index = this.dataSource.data.findIndex(
-      (item: PeriodicElement) => item.staff === this.selectedElement.staff
-    );
-
-    if (index !== -1) {
-      // Only apply DatePipe to date fields (day and schedule)
-      this.dataSource.data[index] = {
-        ...this.elementForm.value,
-        day: this.datePipe.transform(this.elementForm.value.day, 'MM/dd/yy')!,
-        schedule: this.datePipe.transform(this.elementForm.value.schedule, 'MM/dd/yy')!,
-        // Convert time strings to Date objects so DatePipe can format them
-        timeIn: this.convertTimeToDate(this.elementForm.value.timeIn),
-        timeOut: this.convertTimeToDate(this.elementForm.value.timeOut),
-        overtimeIn: this.convertTimeToDate(this.elementForm.value.overtimeIn),
-        overtimeOut: this.convertTimeToDate(this.elementForm.value.overtimeOut),
-        mealIn: this.convertTimeToDate(this.elementForm.value.mealIn),
-        mealOut: this.convertTimeToDate(this.elementForm.value.mealOut)
-      };
-
-      this.dataSource.data = [...this.dataSource.data];
-    }
-
-    const modal = bootstrap.Modal.getInstance(document.getElementById('editModal')!);
-    modal?.hide();
+saveChanges() {
+  if (this.elementForm.invalid) {
+    console.log('Form is invalid');
+    return;
   }
+
+  const updatedElement = {
+    ...this.elementForm.value,
+    day: this.datePipe.transform(this.elementForm.value.day, 'MM/dd/yy')!,
+    schedule: this.datePipe.transform(this.elementForm.value.schedule, 'MM/dd/yy')!,
+    timeIn: this.convertTimeToDate(this.elementForm.value.timeIn),
+    timeOut: this.convertTimeToDate(this.elementForm.value.timeOut),
+    overtimeIn: this.convertTimeToDate(this.elementForm.value.overtimeIn),
+    overtimeOut: this.convertTimeToDate(this.elementForm.value.overtimeOut),
+    mealIn: this.convertTimeToDate(this.elementForm.value.mealIn),
+    mealOut: this.convertTimeToDate(this.elementForm.value.mealOut)
+  };
+
+  console.log('Updating element:', updatedElement);
+
+  // Send the updated data to the backend for MongoDB update
+  this.attendanceService.updateAttendance(this.selectedElement.staff, updatedElement).subscribe(
+    (response: any) => {
+      console.log('Attendance updated:', response);
+
+      // Update the local data source
+      const index = this.dataSource.data.findIndex(
+        (item: PeriodicElement) => item.staff === this.selectedElement.staff
+      );
+      if (index !== -1) {
+        this.dataSource.data[index] = updatedElement;
+        this.dataSource.data = [...this.dataSource.data];
+      }
+
+      // Hide the modal
+      const modal = bootstrap.Modal.getInstance(document.getElementById('editModal')!);
+      modal?.hide();
+    },
+    (error: any) => {
+      console.error('Error updating attendance:', error);
+    }
+  );
+}
+
 
   // Helper method to convert time string to Date object
   convertTimeToDate(time: string): Date {
@@ -181,6 +196,7 @@ saveNewElement() {
     return date;
   }
 
+
   deleteElement(element: PeriodicElement) {
     const index = this.dataSource.data.indexOf(element);
     if (index >= 0) {
@@ -188,7 +204,7 @@ saveNewElement() {
       this.dataSource = new MatTableDataSource(this.dataSource.data);
     }
   }
-
+  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
