@@ -25,21 +25,13 @@ import { HttpClientModule } from '@angular/common/http';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { RouterModule } from '@angular/router';
 import {MatTreeModule} from '@angular/material/tree';
-import { AdminComponent } from './admin/admin.component';
-import { AboutComponent } from './Component/about/about.component';
-import { ContactComponent } from './Component/contact/contact.component';
-import { TimeKeepingComponent } from './time-keeping/time-keeping.component';
-import { HeaderComponent } from './header/header.component';
+
 import { AttendanceComponent } from './attendance/attendance.component';
 import { AttendanceService } from './Services/Attendance.Service';  // Your attendance service
 @NgModule({
   declarations: [
     AppComponent,
-    AdminComponent,
-    AboutComponent,
-    ContactComponent,
-    TimeKeepingComponent,
-    HeaderComponent,
+
     AttendanceComponent
   ],
   imports: [

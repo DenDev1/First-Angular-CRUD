@@ -1,339 +1,348 @@
 <div class="container">
-    <!-- Header Section -->
-    <div class="row mb-4">
-      <div class="col">
-        <h2 class="text-center">Attendance</h2>
-      </div>
-    </div>
-
-    <!-- Main Content Section -->
-    <div class="row">
-      <div class="col-12">
-        <div class="card shadow-lg p-4 border-0">
-          
-          <!-- Filter Section -->
-          <div class="bg-light text-dark p-3 rounded shadow-sm d-flex justify-content-between align-items-center mb-3">
-            <!-- Filter Input with transparent background and black border -->
-            <div class="filter-container w-50">
-              <label for="filterInput" class="form-label">Filter Elements</label>
-              <input
-                type="text"
-                id="filterInput"
-                class="form-control bg-transparent text-dark border border-2 border-dark shadow-none"
-                (input)="applyFilter($event)"
-                placeholder="Type to filter"
-              />
-            </div>
-            <!-- Create Button -->
-            <button class="btn btn-primary" (click)="openCreateModal()">
-              <i class="bi bi-plus"></i>
-            </button>
-            
-          </div>
-
-          <!-- Table Section -->
-          <div class="table-responsive">
-            <table mat-table [dataSource]="dataSource" class="table table-striped align-middle bg-light">
-              
-              <!-- Staff Column -->
-              <ng-container matColumnDef="staff">
-                <th mat-header-cell *matHeaderCellDef>Staff</th>
-                <td mat-cell *matCellDef="let element">{{ element.staff }}</td>
-              </ng-container>
-              <!-- Day Column -->
-              <ng-container matColumnDef="day">
-                <th mat-header-cell *matHeaderCellDef>Day</th>
-                <td mat-cell *matCellDef="let element">{{ element.day | date: 'MMMM d, yyyy' }}</td>
-              </ng-container>
-
-              <!-- Schedule Column -->
-              <ng-container matColumnDef="schedule">
-                <th mat-header-cell *matHeaderCellDef>Schedule</th>
-                <td mat-cell *matCellDef="let element">{{ element.schedule | date: 'MMMM d, yyyy' }}</td>
-              </ng-container>
-
-          <!-- Time In Column -->
-<ng-container matColumnDef="timeIn">
-    <th mat-header-cell *matHeaderCellDef>Time In</th>
-    <td mat-cell *matCellDef="let element">{{ element.timeIn | date: 'hh:mm a' }}</td>
-  </ng-container>
-  
-  <!-- Time Out Column -->
-  <ng-container matColumnDef="timeOut">
-    <th mat-header-cell *matHeaderCellDef>Time Out</th>
-    <td mat-cell *matCellDef="let element">{{ element.timeOut | date: 'hh:mm a' }}</td>
-  </ng-container>
-  
-  <!-- Meal In Column -->
-  <ng-container matColumnDef="mealIn">
-    <th mat-header-cell *matHeaderCellDef>Meal In</th>
-    <td mat-cell *matCellDef="let element">{{ element.mealIn | date: 'hh:mm a' }}</td>
-  </ng-container>
-  
-  <!-- Meal Out Column -->
-  <ng-container matColumnDef="mealOut">
-    <th mat-header-cell *matHeaderCellDef>Meal Out</th>
-    <td mat-cell *matCellDef="let element">{{ element.mealOut | date: 'hh:mm a' }}</td>
-  </ng-container>
-  
-  <!-- OverTime In Column -->
-  <ng-container matColumnDef="overtimeIn">
-    <th mat-header-cell *matHeaderCellDef>OverTime In</th>
-    <td mat-cell *matCellDef="let element">{{ element.overtimeIn | date: 'hh:mm a' }}</td>
-  </ng-container>
-  
-  <!-- OverTime Out Column -->
-  <ng-container matColumnDef="overtimeOut">
-    <th mat-header-cell *matHeaderCellDef>OverTime Out</th>
-    <td mat-cell *matCellDef="let element">{{ element.overtimeOut | date: 'hh:mm a' }}</td>
-  </ng-container>
-  
-              <!-- Actions Column -->
-              <ng-container matColumnDef="actions">
-                <th mat-header-cell *matHeaderCellDef>Actions</th>
-                <td mat-cell *matCellDef="let element" class="d-flex gap-2">
-                  <button mat-icon-button color="primary" (click)="openEditModal(element)">
-                    <mat-icon>edit</mat-icon>
-                  </button>
-                  <button mat-icon-button color="warn" (click)="deleteElement(element)">
-                    <mat-icon>delete</mat-icon>
-                  </button>
-                </td>
-              </ng-container>
-
-              <!-- Header Row and Data Rows -->
-              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-          </div>
-
-          <!-- Paginator -->
-          <mat-paginator 
-            [pageSizeOptions]="[5, 10, 20]" 
-            showFirstLastButtons 
-            class="bg-light p-3 rounded shadow-sm text-black">
-          </mat-paginator>
-
-        </div>
-      </div>
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col">
+      <h2 class="text-center">Attendance</h2>
     </div>
   </div>
 
+  <!-- Main Content Section -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card shadow-lg p-4 border-0">
+        
+       <!-- Filter Section -->
+<div class="bg-transparent text-dark p-3 rounded shadow-sm d-flex justify-content-between align-items-center mb-3">
+<!-- Filter Input with transparent background and black border -->
+<div class="filter-container w-100 me-3"> <!-- Added margin-end (me-3) for spacing -->
+  <label for="filterInput" class="form-label">Filter Elements</label>
+  <input
+    type="text"
+    id="filterInput"
+    class="form-control bg-transparent text-dark border border-2 border-light shadow-none"
+    (input)="applyFilter($event)"
+    placeholder="Type to filter"
+  />
+</div>
 
-    <!-- Modals Section -->
+<!-- Create Button -->
+<button class="btn btn-primary d-flex align-items-center mt-4" (click)="openCreateModal()">
+  <i class="bi bi-plus"></i>
+</button>
+</div>
 
 
+        <!-- Table Section -->
+        <div class="table-responsive">
+          <table mat-table [dataSource]="dataSource" class="table table-striped align-middle bg-light">
+            
+            <!-- Staff Column -->
+            <ng-container matColumnDef="staff">
+              <th mat-header-cell *matHeaderCellDef>Staff</th>
+              <td mat-cell *matCellDef="let element">{{ element.staff }}</td>
+            </ng-container>
+            <!-- Day Column -->
+            <ng-container matColumnDef="day">
+              <th mat-header-cell *matHeaderCellDef>Day</th>
+              <td mat-cell *matCellDef="let element">{{ element.day | date: 'MMMM d, yyyy' }}</td>
+            </ng-container>
+
+            <!-- Schedule Column -->
+            <ng-container matColumnDef="schedule">
+              <th mat-header-cell *matHeaderCellDef>Schedule</th>
+              <td mat-cell *matCellDef="let element">{{ element.schedule | date: 'MMMM d, yyyy' }}</td>
+            </ng-container>
+
+        <!-- Time In Column -->
+<ng-container matColumnDef="timeIn">
+  <th mat-header-cell *matHeaderCellDef>Time In</th>
+  <td mat-cell *matCellDef="let element">{{ element.timeIn | date: 'hh:mm a' }}</td>
+</ng-container>
+
+<!-- Time Out Column -->
+<ng-container matColumnDef="timeOut">
+  <th mat-header-cell *matHeaderCellDef>Time Out</th>
+  <td mat-cell *matCellDef="let element">{{ element.timeOut | date: 'hh:mm a' }}</td>
+</ng-container>
+
+<!-- Meal In Column -->
+<ng-container matColumnDef="mealIn">
+  <th mat-header-cell *matHeaderCellDef>Meal In</th>
+  <td mat-cell *matCellDef="let element">{{ element.mealIn | date: 'hh:mm a' }}</td>
+</ng-container>
+
+<!-- Meal Out Column -->
+<ng-container matColumnDef="mealOut">
+  <th mat-header-cell *matHeaderCellDef>Meal Out</th>
+  <td mat-cell *matCellDef="let element">{{ element.mealOut | date: 'hh:mm a' }}</td>
+</ng-container>
+
+<!-- OverTime In Column -->
+<ng-container matColumnDef="overtimeIn">
+  <th mat-header-cell *matHeaderCellDef>OverTime In</th>
+  <td mat-cell *matCellDef="let element">{{ element.overtimeIn | date: 'hh:mm a' }}</td>
+</ng-container>
+
+<!-- OverTime Out Column -->
+<ng-container matColumnDef="overtimeOut">
+  <th mat-header-cell *matHeaderCellDef>OverTime Out</th>
+  <td mat-cell *matCellDef="let element">{{ element.overtimeOut | date: 'hh:mm a' }}</td>
+</ng-container>
+
+            <!-- Actions Column -->
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef>Actions</th>
+              <td mat-cell *matCellDef="let element" class="d-flex gap-2">
+                <button mat-icon-button color="primary" (click)="openEditModal(element)">
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-icon-button color="warn" (click)="deleteElement(element)">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </td>
+            </ng-container>
+
+            <!-- Header Row and Data Rows -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+        </div>
 
 
-
+      </div>
+           <!-- Paginator -->
+           <mat-paginator  [length]="100"
+           [pageSize]="5"
+           [pageSizeOptions]="[5, 10, 25, 100]"
+           aria-label="Select page" class="bg-primary">
+ </mat-paginator>
  
+    </div>
+       
+  </div>
+</div>
+
+
+  <!-- Modals Section -->
+
+
+
+
+
+
+
 <!-- Create Modal -->
 <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" style="max-width: 600px; margin: auto;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="createModalLabel">Create New Attendance</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal-dialog modal-sm" style="max-width: 600px; margin: auto;">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title" id="createModalLabel">Create New Attendance</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="elementForm" (ngSubmit)="saveNewElement()">
+        <!-- Validation Summary -->
+        <div *ngIf="elementForm.invalid && elementForm.touched" class="alert alert-danger">
+          Please correct the errors below before saving.
         </div>
-        <div class="modal-body">
-          <form [formGroup]="elementForm" (ngSubmit)="saveNewElement()">
-            <div class="row">
-              <!-- Staff -->
-              <div class="col-md-6 mb-3">
-                <label for="staff" class="form-label">Staff</label>
-                <input type="text" class="form-control" id="staff" formControlName="staff" required />
-                <div *ngIf="elementForm.controls['staff'].invalid && elementForm.controls['staff'].touched" class="text-danger">
-                  Staff is required.
-                </div>
-              </div>
-              <!-- Day -->
-              <div class="col-md-6 mb-3">
-                <label for="day" class="form-label">Day</label>
-                <input type="date" class="form-control" id="day" formControlName="day" required />
-                <div *ngIf="elementForm.controls['day'].invalid && elementForm.controls['day'].touched" class="text-danger">
-                  Day is required.
-                </div>
-              </div>
+
+        <div class="row">
+          <!-- Staff -->
+          <div class="col-md-12 mb-3">
+            <label for="staff" class="form-label">Staff</label>
+            <input
+              type="text"
+              class="form-control"
+              id="staff"
+              formControlName="staff"
+              placeholder="Enter staff name"
+              required
+            />
+            <div
+              *ngIf="elementForm.controls['staff'].invalid && elementForm.controls['staff'].touched"
+              class="text-danger"
+            >
+              Staff is required.
             </div>
-  
-            <div class="row">
-              <!-- Schedule -->
-              <div class="col-md-6 mb-3">
-                <label for="schedule" class="form-label">Schedule</label>
-                <input type="date" class="form-control" id="schedule" formControlName="schedule" required />
-                <div *ngIf="elementForm.controls['schedule'].invalid && elementForm.controls['schedule'].touched" class="text-danger">
-                  Schedule is required.
-                </div>
-              </div>
-              <!-- Time In -->
-              <div class="col-md-6 mb-3">
-                <label for="timeIn" class="form-label">Time In</label>
-                <input type="time" class="form-control" id="timeIn" formControlName="timeIn" required />
-                <div *ngIf="elementForm.controls['timeIn'].invalid && elementForm.controls['timeIn'].touched" class="text-danger">
-                  Time In is required.
-                </div>
-              </div>
-            </div>
-  
-            <div class="row">
-              <!-- Time Out -->
-              <div class="col-md-6 mb-3">
-                <label for="timeOut" class="form-label">Time Out</label>
-                <input type="time" class="form-control" id="timeOut" formControlName="timeOut" required />
-                <div *ngIf="elementForm.controls['timeOut'].invalid && elementForm.controls['timeOut'].touched" class="text-danger">
-                  Time Out is required.
-                </div>
-              </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Day -->
+          <div class="col-md-6 mb-3">
+            <label for="day" class="form-label">Day</label>
+            <input type="date" class="form-control" id="day" formControlName="day" required />
+          </div>
+          <!-- Schedule -->
+          <div class="col-md-6 mb-3">
+            <label for="schedule" class="form-label">Schedule</label>
+            <input
+              type="date"
+              class="form-control"
+              id="schedule"
+              formControlName="schedule"
+              required
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Time In/Out -->
+          <div class="col-md-6 mb-3">
+            <label for="timeIn" class="form-label">Time In</label>
+            <input type="time" class="form-control" id="timeIn" formControlName="timeIn" required />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="timeOut" class="form-label">Time Out</label>
+            <input type="time" class="form-control" id="timeOut" formControlName="timeOut" required />
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Overtime In/Out -->
+          <div class="col-md-6 mb-3">
+            <label for="overtimeIn" class="form-label">Overtime In</label>
+            <input
+              type="time"
+              class="form-control"
+              id="overtimeIn"
+              formControlName="overtimeIn"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="overtimeOut" class="form-label">Overtime Out</label>
+            <input
+              type="time"
+              class="form-control"
+              id="overtimeOut"
+              formControlName="overtimeOut"
+            />
+          </div>
+        </div>
+
+        <div class="row">
+          <!-- Meal In/Out -->
+          <div class="col-md-6 mb-3">
+            <label for="mealIn" class="form-label">Meal In</label>
+            <input type="time" class="form-control" id="mealIn" formControlName="mealIn" />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label for="mealOut" class="form-label">Meal Out</label>
+            <input type="time" class="form-control" id="mealOut" formControlName="mealOut" />
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-primary w-100" [disabled]="elementForm.invalid">
+          Save Changes
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
 
 
-              <!-- Overtime In -->
-              <div class="col-md-6 mb-3">
-                <label for="overtimeIn" class="form-label">Overtime In</label>
-                <input type="time" class="form-control" id="overtimeIn" formControlName="overtimeIn" required />
-                <div *ngIf="elementForm.controls['overtimeIn'].invalid && elementForm.controls['overtimeIn'].touched" class="text-danger">
-                  Overtime In is required.
-                </div>
+<!-- Edit Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm" style="max-width: 600px; margin: auto;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit Attendance</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="elementForm" (ngSubmit)="saveChanges()">
+          <div class="row">
+            <!-- Staff -->
+            <div class="col-md-6 mb-3">
+              <label for="staff" class="form-label">Staff</label>
+              <input type="text" class="form-control" id="staff" formControlName="staff" required />
+              <div *ngIf="elementForm.controls['staff'].invalid && elementForm.controls['staff'].touched" class="text-danger">
+                Staff is required.
               </div>
             </div>
-  
-            <div class="row">
-              <!-- Overtime Out -->
-              <div class="col-md-6 mb-3">
-                <label for="overtimeOut" class="form-label">Overtime Out</label>
-               <input type="time" class="form-control" id="overtimeOut" formControlName="overtimeOut" required />
-                <div *ngIf="elementForm.controls['overtimeOut'].invalid && elementForm.controls['overtimeOut'].touched" class="text-danger">
-                  Overtime Out is required.
-                </div>
-              </div>
-              <!-- Meal In -->
-              <div class="col-md-6 mb-3">
-                <label for="mealIn" class="form-label">Meal In</label>
-                <input type="time" class="form-control" id="mealIn" formControlName="mealIn" required />
-                <div *ngIf="elementForm.controls['mealIn'].invalid && elementForm.controls['mealIn'].touched" class="text-danger">
-                  Meal In is required.
-                </div>
+            <!-- Day -->
+            <div class="col-md-6 mb-3">
+              <label for="day" class="form-label">Day</label>
+              <input type="date" class="form-control" id="day" formControlName="day" required />
+              <div *ngIf="elementForm.controls['day'].invalid && elementForm.controls['day'].touched" class="text-danger">
+                Day is required.
               </div>
             </div>
-  
-            <div class="row">
-              <!-- Meal Out -->
-              <div class="col-md-6 mb-3">
-                <label for="mealOut" class="form-label">Meal Out</label>
-                <input type="time" class="form-control" id="mealOut" formControlName="mealOut" required />
-                <div *ngIf="elementForm.controls['mealOut'].invalid && elementForm.controls['mealOut'].touched" class="text-danger">
-                  Meal Out is required.
-                </div>
+          </div>
+
+          <div class="row">
+            <!-- Schedule -->
+            <div class="col-md-6 mb-3">
+              <label for="schedule" class="form-label">Schedule</label>
+              <input type="date" class="form-control" id="schedule" formControlName="schedule" required />
+              <div *ngIf="elementForm.controls['schedule'].invalid && elementForm.controls['schedule'].touched" class="text-danger">
+                Schedule is required.
               </div>
             </div>
-  
-            <button type="submit" class="btn btn-primary" [disabled]="elementForm.invalid">Save Changes</button>
-          </form>
-        </div>
+            <!-- Time In -->
+            <div class="col-md-6 mb-3">
+              <label for="timeIn" class="form-label">Time In</label>
+              <input type="time" class="form-control" id="timeIn" formControlName="timeIn" required />
+              <div *ngIf="elementForm.controls['timeIn'].invalid && elementForm.controls['timeIn'].touched" class="text-danger">
+                Time In is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Time Out -->
+            <div class="col-md-6 mb-3">
+              <label for="timeOut" class="form-label">Time Out</label>
+              <input type="time" class="form-control" id="timeOut" formControlName="timeOut" required />
+              <div *ngIf="elementForm.controls['timeOut'].invalid && elementForm.controls['timeOut'].touched" class="text-danger">
+                Time Out is required.
+              </div>
+            </div>
+            <!-- Overtime In -->
+            <div class="col-md-6 mb-3">
+              <label for="overtimeIn" class="form-label">Overtime In</label>
+              <input type="time" class="form-control" id="overtimeIn" formControlName="overtimeIn" required />
+              <div *ngIf="elementForm.controls['overtimeIn'].invalid && elementForm.controls['overtimeIn'].touched" class="text-danger">
+                Overtime In is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Overtime Out -->
+            <div class="col-md-6 mb-3">
+              <label for="overtimeOut" class="form-label">Overtime Out</label>
+              <input type="time" class="form-control" id="overtimeOut" formControlName="overtimeOut" required />
+              <div *ngIf="elementForm.controls['overtimeOut'].invalid && elementForm.controls['overtimeOut'].touched" class="text-danger">
+                Overtime Out is required.
+              </div>
+            </div>
+            <!-- Meal In -->
+            <div class="col-md-6 mb-3">
+              <label for="mealIn" class="form-label">Meal In</label>
+              <input type="time" class="form-control" id="mealIn" formControlName="mealIn" required />
+              <div *ngIf="elementForm.controls['mealIn'].invalid && elementForm.controls['mealIn'].touched" class="text-danger">
+                Meal In is required.
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <!-- Meal Out -->
+            <div class="col-md-6 mb-3">
+              <label for="mealOut" class="form-label">Meal Out</label>
+              <input type="time" class="form-control" id="mealOut" formControlName="mealOut" required />
+              <div *ngIf="elementForm.controls['mealOut'].invalid && elementForm.controls['mealOut'].touched" class="text-danger">
+                Meal Out is required.
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" [disabled]="elementForm.invalid">Save Changes</button>
+        </form>
       </div>
     </div>
   </div>
-  
-  <!-- Edit Modal -->
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" style="max-width: 600px; margin: auto;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="editModalLabel">Edit Attendance</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <form [formGroup]="elementForm" (ngSubmit)="saveChanges()">
-            <div class="row">
-              <!-- Staff -->
-              <div class="col-md-6 mb-3">
-                <label for="staff" class="form-label">Staff</label>
-                <input type="text" class="form-control" id="staff" formControlName="staff" required />
-                <div *ngIf="elementForm.controls['staff'].invalid && elementForm.controls['staff'].touched" class="text-danger">
-                  Staff is required.
-                </div>
-              </div>
-              <!-- Day -->
-              <div class="col-md-6 mb-3">
-                <label for="day" class="form-label">Day</label>
-                <input type="date" class="form-control" id="day" formControlName="day" required />
-                <div *ngIf="elementForm.controls['day'].invalid && elementForm.controls['day'].touched" class="text-danger">
-                  Day is required.
-                </div>
-              </div>
-            </div>
-  
-            <div class="row">
-              <!-- Schedule -->
-              <div class="col-md-6 mb-3">
-                <label for="schedule" class="form-label">Schedule</label>
-                <input type="date" class="form-control" id="schedule" formControlName="schedule" required />
-                <div *ngIf="elementForm.controls['schedule'].invalid && elementForm.controls['schedule'].touched" class="text-danger">
-                  Schedule is required.
-                </div>
-              </div>
-              <!-- Time In -->
-              <div class="col-md-6 mb-3">
-                <label for="timeIn" class="form-label">Time In</label>
-                <input type="time" class="form-control" id="timeIn" formControlName="timeIn" required />
-                <div *ngIf="elementForm.controls['timeIn'].invalid && elementForm.controls['timeIn'].touched" class="text-danger">
-                  Time In is required.
-                </div>
-              </div>
-            </div>
-  
-            <div class="row">
-              <!-- Time Out -->
-              <div class="col-md-6 mb-3">
-                <label for="timeOut" class="form-label">Time Out</label>
-                <input type="time" class="form-control" id="timeOut" formControlName="timeOut" required />
-                <div *ngIf="elementForm.controls['timeOut'].invalid && elementForm.controls['timeOut'].touched" class="text-danger">
-                  Time Out is required.
-                </div>
-              </div>
-              <!-- Overtime In -->
-              <div class="col-md-6 mb-3">
-                <label for="overtimeIn" class="form-label">Overtime In</label>
-                <input type="time" class="form-control" id="overtimeIn" formControlName="overtimeIn" required />
-                <div *ngIf="elementForm.controls['overtimeIn'].invalid && elementForm.controls['overtimeIn'].touched" class="text-danger">
-                  Overtime In is required.
-                </div>
-              </div>
-            </div>
-  
-            <div class="row">
-              <!-- Overtime Out -->
-              <div class="col-md-6 mb-3">
-                <label for="overtimeOut" class="form-label">Overtime Out</label>
-                <input type="time" class="form-control" id="overtimeOut" formControlName="overtimeOut" required />
-                <div *ngIf="elementForm.controls['overtimeOut'].invalid && elementForm.controls['overtimeOut'].touched" class="text-danger">
-                  Overtime Out is required.
-                </div>
-              </div>
-              <!-- Meal In -->
-              <div class="col-md-6 mb-3">
-                <label for="mealIn" class="form-label">Meal In</label>
-                <input type="time" class="form-control" id="mealIn" formControlName="mealIn" required />
-                <div *ngIf="elementForm.controls['mealIn'].invalid && elementForm.controls['mealIn'].touched" class="text-danger">
-                  Meal In is required.
-                </div>
-              </div>
-            </div>
-  
-            <div class="row">
-              <!-- Meal Out -->
-              <div class="col-md-6 mb-3">
-                <label for="mealOut" class="form-label">Meal Out</label>
-                <input type="time" class="form-control" id="mealOut" formControlName="mealOut" required />
-                <div *ngIf="elementForm.controls['mealOut'].invalid && elementForm.controls['mealOut'].touched" class="text-danger">
-                  Meal Out is required.
-                </div>
-              </div>
-            </div>
-  
-            <button type="submit" class="btn btn-primary" [disabled]="elementForm.invalid">Save Changes</button>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  
+</div>

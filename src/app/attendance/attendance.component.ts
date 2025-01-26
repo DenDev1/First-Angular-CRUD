@@ -196,15 +196,22 @@ saveChanges() {
     return date;
   }
 
-
-  deleteElement(element: PeriodicElement) {
-    const index = this.dataSource.data.indexOf(element);
-    if (index >= 0) {
-      this.dataSource.data.splice(index, 1);
-      this.dataSource = new MatTableDataSource(this.dataSource.data);
-    }
+  deleteElement(element: any) {
+    this.attendanceService.deleteAttendanceByStaff(element.staff).subscribe(
+      (response) => {
+        console.log('Record deleted successfully:', response);
+        const index = this.dataSource.data.indexOf(element);
+        if (index >= 0) {
+          this.dataSource.data.splice(index, 1);
+          this.dataSource = new MatTableDataSource(this.dataSource.data);
+        }
+      },
+      (error) => {
+        console.error('Failed to delete the record:', error);
+        alert('Failed to delete the record. Please try again later.');
+      }
+    );
   }
-  
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();

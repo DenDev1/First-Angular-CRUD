@@ -18,9 +18,20 @@ export class AttendanceService {
     return this.http.post<any>(this.apiUrl, attendance);  // Ensure proper type annotation
   }
 
-  // Update attendance record
-  updateAttendance(id: string, data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/update/${id}`, data);
+  updateAttendance(staff: string, data: any): Observable<any> {
+    return this.http.put(`http://localhost:3000/api/attendance/update/${staff}`, data);
   }
   
+// attendance.service.ts (Angular service)
+
+
+deleteAttendanceByStaff(staff: string): Observable<any> {
+  const url = `http://localhost:3000/api/attendance/${staff}`;
+  console.log('DELETE request sent to:', url); // Debugging log
+  return this.http.delete(url);
+}
+
+
+
+
 }
